@@ -20,8 +20,9 @@ RUN unzip ijava-kernel.zip -d ijava-kernel \
   && python3 install.py --sys-prefix
 
 # install the nbzip extension
-RUN pip3 install nbzip
-
+RUN pip3 install nbzip \
+    && jupyter serverextension enable --py nbzip --sys-prefix
+    
 # Set up the user environment
 
 ENV NB_USER jovyan
@@ -39,10 +40,8 @@ RUN chown -R $NB_UID $HOME
 USER $NB_USER
 
 # enable nbzip
-RUN jupyter serverextension enable --py nbzip --sys-prefix \
-    && jupyter nbextension install --py nbzip --user \
-    && jupyter nbextension enable --py nbzip
-
+RUN jupyter nbextension install --py nbzip --user \
+    jupyter nbextension enable --py nbzip
 
 # Launch the notebook server
 WORKDIR $HOME
