@@ -41,7 +41,7 @@ USER $NB_USER
 
 # enable nbzip
 RUN jupyter nbextension install --py nbzip --user \
-    jupyter nbextension enable --py nbzip
+    && jupyter nbextension enable --py nbzip
 
 # Launch the notebook server
 WORKDIR $HOME
